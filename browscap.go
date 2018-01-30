@@ -44,17 +44,17 @@ func InitBrowsCap(path string, force bool) error {
 }
 
 func InitBrowsCapFromReader(reader *bufio.Reader) error {
-    if initialized {
-        return nil
-    }
-    var err error
+	if initialized {
+		return nil
+	}
+	var err error
 
-    if dict, err = loadFromReader(reader); err != nil {
-        return fmt.Errorf("browscap: An error occurred while loading from reader, %v ", err)
-    }
+	if dict, err = loadFromReader(reader); err != nil {
+		return fmt.Errorf("browscap: An error occurred while loading from reader, %v ", err)
+	}
 
-    initialized = true
-    return nil
+	initialized = true
+	return nil
 }
 
 func InitializedVersion() string {
