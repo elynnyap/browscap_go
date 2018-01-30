@@ -4,6 +4,8 @@
 package browscap_go
 
 import (
+    "bufio"
+    "bytes"
 	"io/ioutil"
 	"strings"
 	"testing"
@@ -19,6 +21,20 @@ func TestInitBrowsCap(t *testing.T) {
 	if err := InitBrowsCap(TEST_INI_FILE, false); err != nil {
 		t.Fatalf("%v", err)
 	}
+}
+
+func TestInitBrowsCapFromReader(t *testing.T) {
+    buffer, err := ioutil.ReadFile(TEST_INI_FILE)
+    if err != nil {
+        t.Fatalf("%v", err)
+    }
+
+    reader := bytes.NewReader(buffer)
+    buf := bufio.NewReader(reader)
+
+    if err := InitBrowsCapFromReader(buf); err != nil {
+        t.Fatalf("%v", err)
+    }
 }
 
 func TestGetBrowser(t *testing.T) {
