@@ -43,8 +43,8 @@ func InitBrowsCap(path string, force bool) error {
 	return nil
 }
 
-func InitBrowsCapFromReader(reader *bufio.Reader) error {
-	if initialized {
+func InitBrowsCapFromReader(reader *bufio.Reader, force bool) error {
+	if initialized && !force {
 		return nil
 	}
 	var err error

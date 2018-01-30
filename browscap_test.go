@@ -32,7 +32,7 @@ func TestInitBrowsCapFromReader(t *testing.T) {
 	reader := bytes.NewReader(buffer)
 	buf := bufio.NewReader(reader)
 
-	if err := InitBrowsCapFromReader(buf); err != nil {
+	if err := InitBrowsCapFromReader(buf, false); err != nil {
 		t.Fatalf("%v", err)
 	}
 }
