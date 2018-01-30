@@ -4,7 +4,7 @@
 package browscap_go
 
 import (
-    "bufio"
+	"bufio"
 	"fmt"
 	"io/ioutil"
 	"net/http"
