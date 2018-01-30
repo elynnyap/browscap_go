@@ -34,7 +34,7 @@ func loadFromIniFile(path string) (*dictionary, error) {
 
 	buf := bufio.NewReader(file)
 
-    return loadFromReader(buf)
+	return loadFromReader(buf)
 }
 
 func loadFromReader(buf *bufio.Reader) (*dictionary, error) {
