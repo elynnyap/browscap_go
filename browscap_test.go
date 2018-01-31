@@ -18,7 +18,7 @@ const (
 )
 
 func initFromTestIniFile(t *testing.T) {
-	if err := InitBrowsCap(TEST_INI_FILE, true); err != nil {
+	if err := InitBrowsCap(TEST_INI_FILE, false); err != nil {
 		t.Fatalf("%v", err)
 	}
 }
