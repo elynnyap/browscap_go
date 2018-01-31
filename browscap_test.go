@@ -17,8 +17,8 @@ const (
 	TEST_IPHONE_AGENT = "Mozilla/5.0 (iPhone; U; CPU iPhone OS 4_3_2 like Mac OS X; en-us) AppleWebKit/533.17.9 (KHTML, like Gecko) Version/5.0.2 Mobile/8H7 Safari/6533.18.5"
 )
 
-func TestInitBrowsCap(t *testing.T) {
-	if err := InitBrowsCap(TEST_INI_FILE, false); err != nil {
+func initFromTestIniFile(t *testing.T) {
+	if err := InitBrowsCap(TEST_INI_FILE, true); err != nil {
 		t.Fatalf("%v", err)
 	}
 }
@@ -32,12 +32,13 @@ func TestInitBrowsCapFromReader(t *testing.T) {
 
 	buf := bufio.NewReader(file)
 
-	if err := InitBrowsCapFromReader(buf, false); err != nil {
+	if err := InitBrowsCapFromReader(buf, true); err != nil {
 		t.Fatalf("%v", err)
 	}
 }
 
 func TestGetBrowser(t *testing.T) {
+	initFromTestIniFile(t)
 	if browser, ok := GetBrowser(TEST_USER_AGENT); !ok {
 		t.Error("Browser not found")
 	} else if browser.Browser != "Chrome" {
@@ -54,6 +55,7 @@ func TestGetBrowser(t *testing.T) {
 }
 
 func TestGetBrowserIPhone(t *testing.T) {
+	initFromTestIniFile(t)
 	if browser, ok := GetBrowser(TEST_IPHONE_AGENT); !ok {
 		t.Error("Browser not found")
 	} else if browser.DeviceName != "iPhone" {
@@ -68,6 +70,7 @@ func TestGetBrowserIPhone(t *testing.T) {
 }
 
 func TestGetBrowserYandex(t *testing.T) {
+	initFromTestIniFile(t)
 	if browser, ok := GetBrowser("Yandex Browser 1.1"); !ok {
 		t.Error("Browser not found")
 	} else if browser.Browser != "Yandex Browser" {
@@ -77,6 +80,7 @@ func TestGetBrowserYandex(t *testing.T) {
 	}
 }
 func TestGetBrowser360Spider(t *testing.T) {
+	initFromTestIniFile(t)
 	if browser, ok := GetBrowser("360Spider"); !ok {
 		t.Error("Browser not found")
 	} else if browser.Browser != "360Spider" {
@@ -87,6 +91,7 @@ func TestGetBrowser360Spider(t *testing.T) {
 }
 
 func TestGetBrowserIssues(t *testing.T) {
+	initFromTestIniFile(t)
 	// https://github.com/digitalcrab/browscap_go/issues/4
 	ua := "Mozilla/5.0 (iPad; CPU OS 5_0_1 like Mac OS X) AppleWebKit/534.46 (KHTML, like Gecko) Version/5.1 Mobile/9A405 Safari/7534.48.3"
 	if browser, ok := GetBrowser(ua); !ok {
@@ -95,6 +100,7 @@ func TestGetBrowserIssues(t *testing.T) {
 		t.Errorf("Expected tablet %q", browser.DeviceType)
 	}
 }
+
 func TestLastVersion(t *testing.T) {
 	if testing.Short() {
 		t.Skip("skipping test in short mode.")
