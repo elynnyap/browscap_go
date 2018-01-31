@@ -23,6 +23,12 @@ func initFromTestIniFile(t *testing.T) {
 	}
 }
 
+func TestInitBrowsCap(t *testing.T) {
+	if err := InitBrowsCap(TEST_INI_FILE, true); err != nil {
+		t.Fatalf("%v", err)
+	}
+}
+
 func TestInitBrowsCapFromReader(t *testing.T) {
 	file, err := os.Open(TEST_INI_FILE)
 	if err != nil {
@@ -149,6 +155,10 @@ func BenchmarkInit(b *testing.B) {
 }
 
 func BenchmarkGetBrowser(b *testing.B) {
+	if err := InitBrowsCap(TEST_INI_FILE, false); err != nil {
+		b.Fatalf("%v", err)
+	}
+	
 	data, err := ioutil.ReadFile("test-data/user_agents_sample.txt")
 	if err != nil {
 		b.Error(err)
